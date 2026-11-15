@@ -107,7 +107,10 @@ legend small{font-weight:400;color:var(--muted)}
 .pick input:checked+label{background:var(--orange);color:#1a0d05;border-color:var(--orange)}
 .pick input:focus-visible+label{outline:3px solid var(--cream);outline-offset:2px}
 .check{grid-template-columns:20px 1fr;align-items:start;font-weight:400;font-size:14px;color:var(--muted)}
-.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--orange)}
+.check input{appearance:none;-webkit-appearance:none;width:20px;height:20px;padding:0;margin-top:1px;border:1.5px solid var(--line);border-radius:6px;background:var(--bg);display:grid;place-content:center;cursor:pointer}
+.check input:checked{background:var(--orange);border-color:var(--orange)}
+.check input:checked::before{content:"✓";font:700 13px/1 var(--body);color:#1a0d05}
+.check input:focus-visible{outline:3px solid var(--cream);outline-offset:2px}
 form .btn{width:100%}
 .btn:disabled{opacity:.6;cursor:wait}
 .btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
