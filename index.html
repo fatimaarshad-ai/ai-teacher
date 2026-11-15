@@ -281,8 +281,10 @@ body.noscroll{overflow:hidden}
 </div>
 
 <script>
-// Where sign-ups go. Set this to the form service URL (e.g. a Formspree form) before going live.
-const FORM_ENDPOINT = "";
+// Sign-ups go to the Supabase table skill_signups. The publishable key is meant to be public:
+// row level security lets visitors insert only, never read the list.
+const FORM_ENDPOINT = "https://uvmdbwmjbwqxaukzbvke.supabase.co/rest/v1/skill_signups";
+const SUPABASE_KEY = "sb_publishable_acqfXGIVi2RfSDsFPDwtTA_LXdAn-fb";
 
 const LESSON = {
   web: ['build my first website', 'Your first web page', 'make a page with your name and one button, open it in the browser'],
@@ -348,8 +350,8 @@ form.addEventListener('submit', async (e) => {
   if (!FORM_ENDPOINT) return showError('Sign-ups open soon. Please try again later.');
   btn.disabled = true; btn.textContent = 'Sending...';
   try {
-    const r = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name: d.name.trim(), email: d.email.trim(), topic: ans.topic, level: ans.level, tool: ans.tool, consent: true }) });
+    const r = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SUPABASE_KEY, Prefer: 'return=minimal' },
+      body: JSON.stringify({ name: d.name.trim(), email: d.email.trim(), topic: ans.topic, level: ans.level, tool: ans.tool }) });
     if (!r.ok) throw new Error(r.status);
     $('#done-name').textContent = d.name.trim().split(' ')[0];
     $('#done-email').textContent = d.email.trim();
